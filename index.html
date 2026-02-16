@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnología Para Todos | Tu Guía Digital con IA</title>
+    <title>Tecnología Para Todos | Web Inteligente</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .chat-container { height: 400px; display: flex; flex-direction: column; }
-        .messages { flex-grow: 1; overflow-y: auto; }
-        .dot-pulse { animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .card-anim { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-anim:hover { transform: translateY(-5px); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -23,284 +21,218 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center gap-2">
-                    <div class="bg-blue-600 p-2 rounded-lg">
+                    <div class="bg-blue-600 p-2 rounded-lg shadow-lg shadow-blue-200">
                         <i class="fas fa-microchip text-white text-xl"></i>
                     </div>
                     <span class="text-xl font-bold tracking-tight text-blue-900">Tecnología Para Todos</span>
                 </div>
                 <div class="hidden md:flex space-x-8 font-medium">
                     <a href="#inicio" class="hover:text-blue-600 transition">Inicio</a>
-                    <a href="#ia-tools" class="hover:text-blue-600 transition">Herramientas IA ✨</a>
-                    <a href="#publicaciones" class="hover:text-blue-600 transition">Publicaciones</a>
-                    <a href="#contacto" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Contacto</a>
+                    <a href="#publicaciones" class="hover:text-blue-600 transition">Noticias</a>
+                    <a href="#ia-tools" class="hover:text-blue-600 transition">IA Tools</a>
+                    <a href="#contacto" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition">Contacto</a>
                 </div>
-                <button class="md:hidden text-2xl" id="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="inicio" class="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left">
-            <div class="grid md:grid-cols-2 items-center gap-12">
-                <div>
-                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                        Hacemos la tecnología <span class="text-blue-400">fácil para todos.</span>
-                    </h1>
-                    <p class="text-lg text-blue-100 mb-8 max-w-lg">
-                        Descubre trucos, noticias y ahora utiliza nuestra nueva **Inteligencia Artificial ✨** para resolver tus dudas al instante.
-                    </p>
-                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                        <a href="#ia-tools" class="flex items-center gap-2 bg-white text-blue-900 px-8 py-4 rounded-xl font-bold transition shadow-lg hover:bg-blue-50">
-                            Probar Herramientas ✨
-                        </a>
-                        <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-bold transition">
-                            <i class="fab fa-facebook"></i> Fanpage
-                        </a>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="relative">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-2xl blur opacity-30"></div>
-                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Tech Background" class="relative rounded-2xl shadow-2xl border border-white/10">
-                    </div>
-                </div>
-            </div>
+    <!-- Hero -->
+    <header id="inicio" class="py-16 bg-gradient-to-br from-blue-900 to-indigo-950 text-white">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl font-extrabold mb-6">Tu Portal Tech Inteligente</h1>
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
+                Contenido actualizado automáticamente con Inteligencia Artificial para que nunca te pierdas de nada.
+            </p>
         </div>
     </header>
 
-    <!-- Zona IA -->
-    <section id="ia-tools" class="py-20 bg-white">
+    <!-- Sección Dinámica: Lo más reciente -->
+    <section id="publicaciones" class="py-20">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Novedad</span>
-                <h2 class="text-3xl font-bold text-gray-900 mt-4">Zona de Inteligencia Artificial ✨</h2>
-                <p class="text-gray-600 mt-2">Potenciamos tu aprendizaje con el poder de Gemini.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Generador de Posts -->
-                <div class="bg-gray-50 p-8 rounded-3xl border border-blue-100">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="bg-indigo-600 p-3 rounded-lg text-white">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">Generador de Ideas ✨</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Escribe un tema y nuestra IA generará una idea para tu próximo post de Facebook.</p>
-                    <div class="space-y-4">
-                        <input id="post-topic" type="text" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: Seguridad en Android">
-                        <button onclick="generatePostIdea()" id="btn-generate" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-2">
-                            <span id="gen-text">Generar Idea ✨</span>
-                            <i id="gen-loader" class="fas fa-spinner fa-spin hidden"></i>
-                        </button>
-                    </div>
-                    <div id="post-result" class="mt-6 p-4 bg-white rounded-xl border border-gray-200 text-gray-700 hidden italic">
-                        <!-- El resultado aparecerá aquí -->
-                    </div>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-2xl text-left">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Lo más reciente en el mundo Tech</h2>
+                    <p class="text-gray-600">Haz clic en el botón para que nuestra IA busque las noticias más importantes de hoy.</p>
                 </div>
-
-                <!-- Chatbot Teaser -->
-                <div class="bg-blue-900 text-white p-8 rounded-3xl relative overflow-hidden">
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="bg-blue-400 p-3 rounded-lg text-blue-900">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <h3 class="text-xl font-bold">Asistente Tecnológico ✨</h3>
-                        </div>
-                        <p class="text-blue-100 mb-8 italic">"¿Cuál es la diferencia entre un SSD y un HDD?" o "¿Cómo protejo mi cuenta de Facebook?"</p>
-                        <button onclick="toggleChat()" class="bg-white text-blue-900 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition">
-                            Hablar con el Asistente
-                        </button>
-                    </div>
-                    <i class="fas fa-microchip absolute -bottom-10 -right-10 text-white/10 text-9xl"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publicaciones Section (Original) -->
-    <section id="publicaciones" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Lo más reciente</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Mantente al día con nuestras últimas actualizaciones tecnológicas.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Cards estáticas -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group">
-                    <div class="h-48 bg-gray-200 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition">
-                    </div>
-                    <div class="p-6">
-                        <span class="text-blue-600 text-sm font-bold uppercase">Hardware</span>
-                        <h3 class="text-xl font-bold mt-2">Laptops 2024</h3>
-                        <p class="text-gray-600 text-sm mb-4">Análisis de rendimiento y precio...</p>
-                        <a href="#" class="text-blue-600 font-semibold">Leer más →</a>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group">
-                    <div class="h-48 bg-gray-200 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition">
-                    </div>
-                    <div class="p-6">
-                        <span class="text-blue-600 text-sm font-bold uppercase">Seguridad</span>
-                        <h3 class="text-xl font-bold mt-2">Privacidad Digital</h3>
-                        <p class="text-gray-600 text-sm mb-4">5 trucos para tus redes...</p>
-                        <a href="#" class="text-blue-600 font-semibold">Leer más →</a>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group">
-                    <div class="h-48 bg-gray-200 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition">
-                    </div>
-                    <div class="p-6">
-                        <span class="text-blue-600 text-sm font-bold uppercase">Tutorial</span>
-                        <h3 class="text-xl font-bold mt-2">Inicia en Código</h3>
-                        <p class="text-gray-600 text-sm mb-4">Guía para principiantes...</p>
-                        <a href="#" class="text-blue-600 font-semibold">Leer más →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ventana de Chat Flotante -->
-    <div id="chat-window" class="fixed bottom-6 right-6 w-80 md:w-96 bg-white rounded-3xl shadow-2xl border border-gray-200 z-[100] hidden overflow-hidden transition-all duration-300">
-        <div class="bg-blue-600 p-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-robot"></i>
-                <span class="font-bold">Asistente TPT ✨</span>
-            </div>
-            <button onclick="toggleChat()" class="hover:bg-blue-700 p-1 rounded"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-container p-4 bg-gray-50">
-            <div id="chat-messages" class="messages space-y-3 mb-4 text-sm">
-                <div class="bg-blue-100 p-3 rounded-2xl rounded-tl-none mr-8">
-                    ¡Hola! Soy tu asistente de **Tecnología Para Todos**. ¿En qué puedo ayudarte hoy?
-                </div>
-            </div>
-            <div class="flex gap-2">
-                <input id="chat-input" type="text" class="flex-grow px-3 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-sm" placeholder="Escribe tu duda...">
-                <button onclick="sendMessage()" class="bg-blue-600 text-white p-2 rounded-xl hover:bg-blue-700 transition">
-                    <i class="fas fa-paper-plane"></i>
+                <button onclick="syncRecentPosts()" id="sync-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-3 transition-all shadow-lg shadow-blue-100">
+                    <i class="fas fa-sync-alt" id="sync-icon"></i>
+                    <span id="sync-text">Sincronizar Noticias Reales</span>
                 </button>
+            </div>
+
+            <!-- Contenedor de Cards -->
+            <div id="posts-container" class="grid md:grid-cols-3 gap-8">
+                <!-- Estado Inicial: Cards de ejemplo -->
+                <div class="bg-white p-8 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-50">
+                    <i class="fas fa-newspaper text-4xl mb-4 text-gray-300"></i>
+                    <p class="text-gray-400">Presiona sincronizar para cargar noticias actuales</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-50">
+                    <i class="fas fa-newspaper text-4xl mb-4 text-gray-300"></i>
+                    <p class="text-gray-400">Presiona sincronizar para cargar noticias actuales</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-50">
+                    <i class="fas fa-newspaper text-4xl mb-4 text-gray-300"></i>
+                    <p class="text-gray-400">Presiona sincronizar para cargar noticias actuales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IA Tools: Chatbot y Generador (Mejorados) -->
+    <section id="ia-tools" class="py-20 bg-blue-50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+             <h2 class="text-3xl font-bold mb-12">Herramientas para Creadores ✨</h2>
+             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-left">
+                     <h3 class="font-bold text-xl mb-4"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Generador de Posts</h3>
+                     <textarea id="post-input" class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Tema para tu fanpage..."></textarea>
+                     <button onclick="generatePost()" id="post-btn" class="w-full bg-indigo-600 text-white py-3 rounded-2xl font-bold">Generar Estrategia</button>
+                     <div id="post-output" class="mt-4 p-4 bg-indigo-50 text-indigo-900 rounded-2xl hidden text-sm leading-relaxed"></div>
+                 </div>
+                 
+                 <div class="bg-blue-900 text-white p-8 rounded-3xl text-left flex flex-col justify-between">
+                     <div>
+                        <h3 class="font-bold text-xl mb-4"><i class="fas fa-robot mr-2"></i> Asistente 24/7</h3>
+                        <p class="text-blue-200 text-sm">¿Tienes una duda técnica? Pregúntale a nuestra IA especializada en tecnología para todos.</p>
+                     </div>
+                     <button onclick="openChat()" class="mt-8 bg-blue-500 text-white py-3 rounded-2xl font-bold hover:bg-blue-400">Abrir Chat Inteligente</button>
+                 </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
+            <div class="bg-blue-600 p-6 text-white flex justify-between items-center">
+                <span class="font-bold flex items-center gap-2"><i class="fas fa-circle text-green-400 text-[10px] animate-pulse"></i> Asistente TPT</span>
+                <button onclick="closeChat()"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="chat-box" class="h-80 overflow-y-auto p-6 space-y-4 bg-gray-50">
+                <div class="bg-blue-100 text-blue-900 p-4 rounded-2xl rounded-tl-none mr-12 text-sm">
+                    Hola, soy el experto de **Tecnología Para Todos**. ¿En qué gadget o software puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="p-4 border-t flex gap-2">
+                <input id="chat-input" type="text" class="flex-grow p-3 bg-gray-100 rounded-xl outline-none" placeholder="Escribe aquí...">
+                <button onclick="sendChat()" class="bg-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Botón de Chat Circular (cuando está cerrado) -->
-    <button onclick="toggleChat()" id="chat-launcher" class="fixed bottom-6 right-6 bg-blue-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-2xl hover:scale-110 transition z-[99]">
-        <i class="fas fa-comment-dots"></i>
-    </button>
-
-    <!-- Footer (Original) -->
-    <footer class="bg-white py-12 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm">© 2024 Tecnología Para Todos. Potenciado por Inteligencia Artificial.</p>
-        </div>
-    </footer>
-
     <script>
-        // CONFIGURACIÓN API GEMINI
-        const apiKey = ""; // La clave se inyectará automáticamente
-        const MODEL_NAME = "gemini-2.5-flash-preview-09-2025";
+        const apiKey = ""; 
+        const model = "gemini-2.5-flash-preview-09-2025";
 
-        async function callGemini(prompt, systemInstruction = "") {
-            let retries = 0;
-            const maxRetries = 5;
-            
-            while (retries < maxRetries) {
-                try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }],
-                            systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined
-                        })
-                    });
-
-                    if (!response.ok) throw new Error('API Error');
-                    
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar una respuesta.";
-                } catch (error) {
-                    retries++;
-                    const delay = Math.pow(2, retries) * 500;
-                    await new Promise(res => setTimeout(res, delay));
+        async function fetchAI(prompt, systemInstruction = "", useSearch = false) {
+            try {
+                const body = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: { parts: [{ text: systemInstruction }] }
+                };
+                if (useSearch) {
+                    body.tools = [{ "google_search": {} }];
                 }
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
+                return {
+                    text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Error de respuesta",
+                    grounding: data.candidates?.[0]?.groundingMetadata?.groundingAttributions || []
+                };
+            } catch (e) {
+                return { text: "Hubo un error al conectar con la IA.", grounding: [] };
             }
-            return "Lo siento, tuve un problema de conexión. Por favor intenta de nuevo.";
         }
 
-        // FUNCIÓN: GENERADOR DE POSTS
-        async function generatePostIdea() {
-            const input = document.getElementById('post-topic');
-            const resultBox = document.getElementById('post-result');
-            const loader = document.getElementById('gen-loader');
-            const btnText = document.getElementById('gen-text');
+        // --- FUNCIONALIDAD: SINCRONIZAR NOTICIAS REALES ---
+        async function syncRecentPosts() {
+            const btn = document.getElementById('sync-btn');
+            const icon = document.getElementById('sync-icon');
+            const text = document.getElementById('sync-text');
+            const container = document.getElementById('posts-container');
 
-            if (!input.value.trim()) return;
+            btn.disabled = true;
+            icon.classList.add('fa-spin');
+            text.innerText = "Buscando noticias reales...";
 
-            loader.classList.remove('hidden');
-            btnText.innerText = "Pensando...";
-            resultBox.classList.add('hidden');
-
-            const prompt = `Genera una idea creativa para un post de Facebook sobre el tema: ${input.value}. Incluye un título llamativo, un texto corto para el post y 3 hashtags relevantes. Sé profesional pero cercano.`;
-            const system = "Eres un experto en marketing digital para canales de tecnología llamados 'Tecnología Para Todos'.";
-
-            const result = await callGemini(prompt, system);
+            const prompt = "Busca las 3 noticias de tecnología más importantes y recientes de hoy en español. Para cada noticia dame: 1. Título corto, 2. Resumen de máximo 20 palabras, 3. Categoría (ej: Móviles, IA, Ciencia), 4. URL de la fuente. Devuelve la respuesta en formato JSON puro con esta estructura: [ { 'title': '', 'desc': '', 'cat': '', 'url': '' } ]";
             
-            resultBox.innerHTML = result.replace(/\n/g, '<br>');
-            resultBox.classList.remove('hidden');
-            loader.classList.add('hidden');
-            btnText.innerText = "Generar Idea ✨";
+            const result = await fetchAI(prompt, "Eres un periodista tech. Devuelve SOLO el JSON sin etiquetas de código Markdown.", true);
+            
+            try {
+                // Limpiar posibles etiquetas de markdown
+                const jsonStr = result.text.replace(/```json/g, '').replace(/```/g, '').trim();
+                const posts = JSON.parse(jsonStr);
+                
+                container.innerHTML = '';
+                posts.forEach(post => {
+                    container.innerHTML += `
+                        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden card-anim flex flex-col h-full">
+                            <div class="h-40 bg-blue-100 flex items-center justify-center relative">
+                                <span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-tighter shadow-sm border border-blue-100">${post.cat || 'TECH'}</span>
+                                <i class="fas fa-bolt text-blue-500 text-4xl opacity-50"></i>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight">${post.title}</h3>
+                                <p class="text-gray-500 text-sm mb-6 flex-grow">${post.desc}</p>
+                                <a href="${post.url}" target="_blank" class="w-full bg-gray-50 text-blue-600 py-3 rounded-xl font-bold text-center hover:bg-blue-600 hover:text-white transition flex items-center justify-center gap-2">
+                                    Ver Noticia Completa <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                console.error("Error parseando JSON", e);
+                text.innerText = "Error al cargar. Intenta de nuevo.";
+            } finally {
+                btn.disabled = false;
+                icon.classList.remove('fa-spin');
+                text.innerText = "Sincronizar Noticias Reales";
+            }
         }
 
-        // FUNCIÓN: CHATBOT
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            const launcher = document.getElementById('chat-launcher');
-            chatWindow.classList.toggle('hidden');
-            launcher.classList.toggle('hidden');
+        // --- FUNCIONALIDAD: GENERADOR ---
+        async function generatePost() {
+            const topic = document.getElementById('post-input').value;
+            const out = document.getElementById('post-output');
+            const btn = document.getElementById('post-btn');
+            if(!topic) return;
+
+            btn.disabled = true;
+            btn.innerText = "Creando estrategia...";
+            
+            const res = await fetchAI(`Crea un post para Facebook sobre ${topic}. Incluye Gancho, Contenido y Call to Action.`, "Eres el social media manager de 'Tecnología Para Todos'.");
+            out.innerHTML = res.text.replace(/\n/g, '<br>');
+            out.classList.remove('hidden');
+            btn.disabled = false;
+            btn.innerText = "Generar Estrategia";
         }
 
-        async function sendMessage() {
+        // --- CHAT LOGIC ---
+        function openChat() { document.getElementById('chat-modal').classList.remove('hidden'); }
+        function closeChat() { document.getElementById('chat-modal').classList.add('hidden'); }
+
+        async function sendChat() {
             const input = document.getElementById('chat-input');
-            const container = document.getElementById('chat-messages');
-            const message = input.value.trim();
+            const box = document.getElementById('chat-box');
+            const val = input.value.trim();
+            if(!val) return;
 
-            if (!message) return;
-
-            // Mensaje usuario
-            container.innerHTML += `<div class="bg-gray-200 p-3 rounded-2xl rounded-tr-none ml-8 text-right">${message}</div>`;
+            box.innerHTML += `<div class="bg-gray-200 text-gray-800 p-4 rounded-2xl rounded-tr-none ml-12 text-sm text-right">${val}</div>`;
             input.value = "";
-            container.scrollTop = container.scrollHeight;
+            box.scrollTop = box.scrollHeight;
 
-            // Indicador de carga
-            const typingId = 'typing-' + Date.now();
-            container.innerHTML += `<div id="${typingId}" class="bg-blue-100 p-3 rounded-2xl rounded-tl-none mr-8 dot-pulse">El asistente está escribiendo...</div>`;
-            container.scrollTop = container.scrollHeight;
-
-            const system = "Eres el asistente inteligente oficial de 'Tecnología Para Todos'. Responde de forma clara, amigable y técnica a la vez. No uses más de 3 párrafos por respuesta.";
-            const response = await callGemini(message, system);
-
-            document.getElementById(typingId).remove();
-            container.innerHTML += `<div class="bg-blue-100 p-3 rounded-2xl rounded-tl-none mr-8">${response.replace(/\n/g, '<br>')}</div>`;
-            container.scrollTop = container.scrollHeight;
+            const res = await fetchAI(val, "Eres el asistente oficial de Tecnología Para Todos. Da respuestas cortas, útiles y divertidas.");
+            box.innerHTML += `<div class="bg-blue-100 text-blue-900 p-4 rounded-2xl rounded-tl-none mr-12 text-sm">${res.text.replace(/\n/g, '<br>')}</div>`;
+            box.scrollTop = box.scrollHeight;
         }
-
-        // Event listener para Enter en chat
-        document.getElementById('chat-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
     </script>
 </body>
 </html>
