@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnología Para Todos | Noticias e IA</title>
+    <title>Tecnología Pa Todos | Noticias e IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
-        .news-card { display: flex; flex-direction: column; height: 100%; transition: all 0.3s ease; }
-        .news-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #2563eb; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+        
+        /* Ajuste de tarjetas para que sean uniformes */
+        .news-card { 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%; 
+            transition: all 0.3s ease;
+        }
+        .news-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
+        }
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .hidden { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -22,7 +39,7 @@
     <!-- Navegación -->
     <nav class="sticky top-0 z-50 glass border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="showHome()">
+            <div class="flex items-center gap-2">
                 <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg">
                     <i class="fas fa-microchip"></i>
                 </div>
@@ -30,9 +47,9 @@
             </div>
             <div class="flex items-center gap-4">
                 <div class="hidden md:flex gap-6 font-medium text-slate-600 mr-4">
-                    <a href="#noticias" onclick="showHome()" class="hover:text-blue-600 transition">Noticias</a>
-                    <a href="#herramientas" onclick="showHome()" class="hover:text-blue-600 transition">Herramientas</a>
-                    <a href="#asistente" onclick="showHome()" class="hover:text-blue-600 transition">Asistente</a>
+                    <a href="#noticias" class="hover:text-blue-600 transition">Noticias</a>
+                    <a href="#herramientas" class="hover:text-blue-600 transition">Herramientas</a>
+                    <a href="#asistente" class="hover:text-blue-600 transition">Asistente</a>
                 </div>
                 <button onclick="toggleConfig()" class="text-slate-400 hover:text-blue-600 transition text-xl p-2">
                     <i class="fas fa-cog"></i>
@@ -41,84 +58,96 @@
         </div>
     </nav>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main id="main-content">
-        <!-- Hero -->
-        <header class="py-16 bg-white">
-            <div class="max-w-5xl mx-auto px-4 text-center">
-                <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
-                    Información que <span class="text-blue-600">te conecta.</span>
-                </h1>
-                <p class="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
-                    Noticias reales de tecnología obtenidas mediante IA y herramientas recomendadas para tu éxito digital.
-                </p>
-                <button onclick="syncNews()" id="btn-sync" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 mx-auto shadow-xl hover:bg-blue-700 transition active:scale-95">
-                    <i class="fas fa-sync-alt" id="sync-icon"></i>
-                    <span id="sync-text">Sincronizar Noticias Reales</span>
-                </button>
-            </div>
-        </header>
+    <!-- Hero -->
+    <header class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
+                Información que <span class="text-blue-600">te conecta.</span>
+            </h1>
+            <p class="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
+                Noticias reales de tecnología obtenidas mediante IA y herramientas recomendadas para tu éxito digital.
+            </p>
+            <button onclick="syncNews()" id="btn-sync" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 mx-auto shadow-xl hover:bg-blue-700 transition active:scale-95">
+                <i class="fas fa-sync-alt" id="sync-icon"></i>
+                <span id="sync-text">Sincronizar Noticias Reales</span>
+            </button>
+        </div>
+    </header>
 
-        <!-- Sección de Noticias -->
-        <section id="noticias" class="py-12 max-w-7xl mx-auto px-4">
-            <div class="mb-10">
-                <h2 class="text-3xl font-bold text-slate-900">Últimas Tendencias ✨</h2>
-                <p class="text-slate-500">Haz clic en sincronizar para obtener fuentes reales de hoy.</p>
+    <!-- Sección de Noticias -->
+    <section id="noticias" class="py-12 max-w-7xl mx-auto px-4">
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-slate-900">Últimas Tendencias ✨</h2>
+            <p class="text-slate-500">Haz clic en sincronizar para obtener fuentes reales de hoy.</p>
+        </div>
+        
+        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Estado inicial vacío -->
+            <div class="col-span-full border-2 border-dashed border-slate-200 rounded-[2.5rem] py-20 text-center bg-white/50">
+                <i class="far fa-newspaper text-5xl text-slate-200 mb-4"></i>
+                <p class="text-slate-400 font-medium">No hay noticias. Usa el botón de sincronizar arriba.</p>
             </div>
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="col-span-full border-2 border-dashed border-slate-200 rounded-[2.5rem] py-20 text-center bg-white/50">
-                    <i class="far fa-newspaper text-5xl text-slate-200 mb-4"></i>
-                    <p class="text-slate-400 font-medium">No hay noticias. Usa el botón de sincronizar arriba.</p>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Recomendaciones -->
-        <section id="herramientas" class="py-20 bg-slate-900 rounded-[3rem] mx-4 mb-20 overflow-hidden relative">
-            <div class="max-w-7xl mx-auto px-8 relative z-10 text-white">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4">Aliados Tecnológicos</h2>
-                    <p class="text-slate-400">Herramientas que impulsan tu productividad.</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-[2rem] text-slate-900 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-tv"></i></div>
-                                <h3 class="text-2xl font-bold">OptiSigns</h3>
+    <!-- Recomendaciones -->
+    <section id="herramientas" class="py-20 bg-slate-900 rounded-[3rem] mx-4 mb-20 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-8 relative z-10 text-white">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Aliados Tecnológicos</h2>
+                <p class="text-slate-400">Herramientas que impulsan tu productividad.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- OptiSigns -->
+                <div class="bg-white p-8 rounded-[2rem] text-slate-900 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fas fa-tv"></i>
                             </div>
-                            <p class="text-slate-600 mb-6">Gestión de cartelería digital para cualquier pantalla. Crea contenido visual impactante para tu negocio.</p>
+                            <h3 class="text-2xl font-bold">OptiSigns</h3>
                         </div>
-                        <a href="https://www.optisigns.com/?ref=tecnoxall" target="_blank" class="block text-center bg-orange-600 text-white py-4 rounded-xl font-bold hover:bg-orange-700 transition">Probar Gratis Ahora</a>
+                        <p class="text-slate-600 mb-6">Gestión de cartelería digital para cualquier pantalla. Crea contenido visual impactante para tu negocio.</p>
                     </div>
-                    <div class="bg-white p-8 rounded-[2rem] text-slate-900 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="bg-pink-100 text-pink-600 w-12 h-12 rounded-xl flex items-center justify-center text-xl"><i class="fas fa-video"></i></div>
-                                <h3 class="text-2xl font-bold">Fliki.ai</h3>
-                            </div>
-                            <p class="text-slate-600 mb-6">Crea videos virales a partir de simples textos. Voces realistas con IA para tus redes sociales.</p>
-                        </div>
-                        <a href="https://fliki.ai/?via=Tecnologiapatodos" target="_blank" class="block text-center bg-pink-600 text-white py-4 rounded-xl font-bold hover:bg-pink-700 transition">Crear Video Gratis</a>
-                    </div>
+                    <a href="https://www.optisigns.com/?ref=tecnoxall" target="_blank" class="block text-center bg-orange-600 text-white py-4 rounded-xl font-bold hover:bg-orange-700 transition">Probar Gratis Ahora</a>
                 </div>
-            </div>
-        </section>
 
-        <!-- Asistente IA -->
-        <section id="asistente" class="max-w-4xl mx-auto px-4 mb-20">
-            <div class="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm">
-                <h2 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fas fa-robot text-blue-600"></i> Asistente de Tecnología</h2>
-                <div id="chat-box" class="h-64 overflow-y-auto mb-6 p-6 bg-slate-50 rounded-2xl space-y-4 text-sm border border-slate-100">
-                    <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">¡Hola! Soy el experto de **Tecnología Para Todos**. ¿En qué puedo ayudarte hoy?</div>
-                </div>
-                <div class="flex gap-2">
-                    <input id="chat-input" type="text" class="flex-grow p-4 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600" placeholder="Escribe tu duda técnica...">
-                    <button onclick="sendChat()" class="bg-blue-600 text-white px-8 rounded-2xl hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i></button>
+                <!-- Fliki -->
+                <div class="bg-white p-8 rounded-[2rem] text-slate-900 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-pink-100 text-pink-600 w-12 h-12 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">Fliki.ai</h3>
+                        </div>
+                        <p class="text-slate-600 mb-6">Crea videos virales a partir de simples textos. Voces realistas con IA para tus redes sociales.</p>
+                    </div>
+                    <a href="https://fliki.ai/?via=Tecnologiapatodos" target="_blank" class="block text-center bg-pink-600 text-white py-4 rounded-xl font-bold hover:bg-pink-700 transition">Crear Video Gratis</a>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- Asistente IA -->
+    <section id="asistente" class="max-w-4xl mx-auto px-4 mb-20">
+        <div class="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <i class="fas fa-robot text-blue-600"></i> Asistente de Tecnología
+            </h2>
+            <div id="chat-box" class="h-64 overflow-y-auto mb-6 p-6 bg-slate-50 rounded-2xl space-y-4 text-sm border border-slate-100">
+                <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">
+                    ¡Hola! Soy el experto de **Tecnología Para Todos**. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <input id="chat-input" type="text" class="flex-grow p-4 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600" placeholder="Escribe tu duda técnica...">
+                <button onclick="sendChat()" class="bg-blue-600 text-white px-8 rounded-2xl hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </section>
+ </main>
 
     <!-- PÁGINA DE PRIVACIDAD (Oculta por defecto) -->
     <main id="privacy-content" class="hidden py-16 max-w-4xl mx-auto px-6">
@@ -189,18 +218,6 @@
         let customKey = localStorage.getItem('TPT_KEY') || "";
         const model = "gemini-2.5-flash-preview-09-2025";
 
-        // Navegación interna
-        function showPrivacy() {
-            document.getElementById('main-content').classList.add('hidden');
-            document.getElementById('privacy-content').classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-        function showHome() {
-            document.getElementById('privacy-content').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
         function toggleConfig() { document.getElementById('config-modal').classList.toggle('hidden'); }
         function saveApiKey() {
             const v = document.getElementById('api-key-input').value.trim();
@@ -226,13 +243,31 @@
             const grid = document.getElementById('news-grid');
             const icon = document.getElementById('sync-icon');
             const text = document.getElementById('sync-text');
+
             icon.classList.add('fa-spin');
             text.innerText = "Buscando noticias reales...";
             grid.innerHTML = '<div class="col-span-full flex justify-center py-20"><div class="loader"></div></div>';
 
-            const prompt = `Busca 3 noticias de tecnología importantes de hoy. Genera tarjetas HTML profesionales con clases de Tailwind. Incluye enlaces reales de fuentes confiables. Devuelve SOLO HTML sin markdown.`;
-            const html = await fetchAI(prompt, "Eres un portal tech experto.", true);
-            if(html) { grid.innerHTML = html.replace(/```html/g, '').replace(/```/g, '').trim(); }
+            const prompt = `
+                Busca las 3 noticias de tecnología más importantes de hoy en español.
+                Para cada noticia genera una tarjeta HTML exactamente con estas clases:
+                'bg-white p-8 rounded-[2rem] news-card border border-slate-100 shadow-sm flex flex-col justify-between'.
+                Dentro del HTML DEBES INCLUIR:
+                1. <span class="text-blue-600 font-bold text-xs uppercase mb-2">CATEGORIA</span>
+                2. <h3 class="text-xl font-bold text-slate-900 mb-4">TITULO REAL</h3>
+                3. <p class="text-slate-500 text-sm mb-8">RESUMEN CORTO</p>
+                4. <a href="URL_REAL_DE_LA_FUENTE" target="_blank" class="block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Leer Noticia Completa</a>
+                REQUISITO CRÍTICO: El href debe ser el link real del artículo de noticias.
+                DEVUELVE SOLO EL CÓDIGO HTML, sin markdown.
+            `;
+
+            const html = await fetchAI(prompt, "Eres un portal de noticias llamado Tecnología Para Todos.", true);
+            
+            if(html) {
+                grid.innerHTML = html.replace(/```html/g, '').replace(/```/g, '').trim();
+            } else {
+                grid.innerHTML = '<p class="col-span-full text-center py-10 text-red-500">Error al sincronizar. Revisa tu API Key en el icono de configuración.</p>';
+            }
             icon.classList.remove('fa-spin');
             text.innerText = "Sincronizar Noticias Reales";
         }
@@ -246,7 +281,9 @@
             input.value = "";
             box.scrollTop = box.scrollHeight;
             const res = await fetchAI(val, "Eres el asistente experto de Tecnología Para Todos.");
-            if(res) { box.innerHTML += `<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">${res.replace(/\n/g, '<br>')}</div>`; }
+            if(res) {
+                box.innerHTML += `<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">${res.replace(/\n/g, '<br>')}</div>`;
+            }
             box.scrollTop = box.scrollHeight;
         }
     </script>
