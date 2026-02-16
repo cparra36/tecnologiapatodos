@@ -3,261 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnología Para Todos | Portal Inteligente</title>
+    <title>Tecnología Para Todos | Noticias en Vivo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-8px); shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
-        .loader-dots div { animation: blink 1.4s infinite both; }
-        .loader-dots div:nth-child(2) { animation-delay: 0.2s; }
-        .loader-dots div:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .news-card { transition: all 0.3s ease; border: 1px solid #f3f4f6; }
+        .news-card:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
+        
+        /* Animación de carga */
+        .loading-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
     <!-- Navegación -->
     <nav class="sticky top-0 z-50 glass border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
-                    <div class="bg-blue-600 p-2 rounded-xl shadow-lg">
-                        <i class="fas fa-bolt text-white text-xl"></i>
-                    </div>
-                    <span class="text-xl font-bold text-blue-900 tracking-tight">Tecnología Para Todos</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i class="fas fa-rss"></i>
                 </div>
-                <div class="hidden md:flex space-x-8 font-semibold text-gray-600">
-                    <a href="#inicio" class="hover:text-blue-600 transition">Inicio</a>
-                    <a href="#publicaciones" class="hover:text-blue-600 transition">Noticias</a>
-                    <a href="#ia-tools" class="hover:text-blue-600 transition">Herramientas IA</a>
-                    <a href="#contacto" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-md">Contacto</a>
-                </div>
+                <span class="text-xl font-bold text-blue-900">Tecnología Para Todos</span>
+            </div>
+            <div class="hidden md:flex gap-6 font-medium text-gray-600">
+                <a href="#inicio" class="hover:text-blue-600">Inicio</a>
+                <a href="#noticias" class="hover:text-blue-600">Noticias Reales</a>
+                <a href="#herramientas" class="hover:text-blue-600">IA Tools</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
-    <header id="inicio" class="relative py-24 bg-gradient-to-br from-blue-900 via-indigo-900 to-black text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
-            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">
-                El futuro de la <span class="text-blue-400">Tecnología</span>
+    <header id="inicio" class="py-20 bg-white border-b border-gray-100">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                Noticias Tech <span class="text-blue-600 italic">al instante.</span>
             </h1>
-            <p class="text-xl text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Información real, herramientas con Inteligencia Artificial y todo lo que necesitas para dominar el mundo digital.
+            <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+                Tu portal de confianza ahora utiliza Inteligencia Artificial para buscar y presentarte lo más relevante del día.
             </p>
-            <div class="flex justify-center gap-4">
-                <a href="#publicaciones" class="bg-white text-blue-900 px-8 py-4 rounded-2xl font-bold hover:bg-blue-50 transition shadow-xl">Explorar Noticias</a>
-                <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="bg-blue-600/20 border border-white/20 backdrop-blur px-8 py-4 rounded-2xl font-bold hover:bg-white/10 transition">Ir a Facebook</a>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="syncNews()" id="btn-sync" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 shadow-lg shadow-blue-200 hover:bg-blue-700 transition active:scale-95">
+                    <i class="fas fa-magic" id="sync-icon"></i>
+                    <span id="sync-text">Sincronizar Noticias</span>
+                </button>
+                <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="bg-gray-100 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:bg-gray-200 transition">
+                    Ver Facebook
+                </a>
             </div>
         </div>
-        <!-- Decoración abstracta -->
-        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
     </header>
 
-    <!-- Sección de Noticias Dinámicas -->
-    <section id="publicaciones" class="py-24">
+    <!-- Contenedor de Noticias -->
+    <section id="noticias" class="py-16">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4 tracking-tight">Lo más reciente ✨</h2>
-                    <p class="text-gray-500 text-lg">Noticias reales del día obtenidas mediante Inteligencia Artificial.</p>
-                </div>
-                <button onclick="syncNews()" id="sync-btn" class="group bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all shadow-xl shadow-blue-200 active:scale-95">
-                    <i class="fas fa-sync-alt group-hover:rotate-180 transition-transform duration-500" id="sync-icon"></i>
-                    <span id="sync-text">Sincronizar Noticias de Hoy</span>
-                </button>
-            </div>
-
             <div id="news-grid" class="grid md:grid-cols-3 gap-8">
-                <!-- Estado vacío inicial -->
-                <div class="md:col-span-3 py-20 flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-[3rem] bg-gray-50/50">
-                    <div class="bg-gray-100 p-6 rounded-full mb-4">
-                        <i class="far fa-newspaper text-5xl text-gray-300"></i>
-                    </div>
-                    <p class="text-gray-400 font-medium">No hay noticias cargadas. Presiona el botón de sincronizar.</p>
+                <!-- Estado inicial -->
+                <div class="md:col-span-3 border-4 border-dashed border-gray-100 rounded-[3rem] p-20 text-center">
+                    <i class="fas fa-cloud-download-alt text-6xl text-gray-200 mb-6"></i>
+                    <h3 class="text-xl font-bold text-gray-400">Presiona el botón para cargar noticias reales de hoy</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- IA Tools -->
-    <section id="ia-tools" class="py-24 bg-gray-900 text-white rounded-[3rem] mx-4 mb-24 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-8 relative z-10">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-4xl font-bold mb-6">Herramientas con Gemini AI</h2>
-                    <p class="text-gray-400 mb-8 text-lg">Hemos integrado la tecnología de Google para ayudarte a crear contenido y resolver dudas al instante.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition cursor-pointer" onclick="openAssistant()">
-                            <h4 class="font-bold text-blue-400 mb-1 flex items-center gap-2"><i class="fas fa-robot"></i> Asistente Experto</h4>
-                            <p class="text-sm text-gray-300">Resuelve cualquier duda sobre configuración de equipos o software.</p>
-                        </div>
-                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition">
-                            <h4 class="font-bold text-purple-400 mb-3 flex items-center gap-2"><i class="fas fa-magic"></i> Redactor de Contenido</h4>
-                            <input id="ai-topic" type="text" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-2 mb-3 outline-none focus:border-purple-500" placeholder="Ej: Curiosidades de la IA">
-                            <button onclick="generateDraft()" id="draft-btn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl text-sm font-bold w-full transition">Generar Borrador</button>
-                        </div>
-                    </div>
+    <section id="herramientas" class="py-20 bg-blue-900 text-white rounded-[3rem] mx-4 mb-20 p-10">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Asistente Tecnológico ✨</h2>
+                <p class="text-blue-100 mb-8">Pregunta lo que quieras. Nuestra IA está entrenada para ayudarte con errores de Windows, trucos de celular y más.</p>
+                <div class="flex gap-2">
+                    <input id="chat-input" type="text" class="flex-grow p-4 rounded-xl text-gray-900 outline-none focus:ring-4 focus:ring-blue-400" placeholder="¿Cómo limpio mi PC?">
+                    <button onclick="askAI()" class="bg-blue-500 p-4 rounded-xl font-bold hover:bg-blue-400"><i class="fas fa-paper-plane"></i></button>
                 </div>
-                <div class="bg-white rounded-3xl p-8 text-gray-900 shadow-2xl">
-                    <div id="ai-output" class="h-[300px] overflow-y-auto text-sm space-y-4 pr-2">
-                        <p class="text-gray-400 italic">Aquí aparecerá el resultado de las herramientas de IA...</p>
-                    </div>
-                </div>
+            </div>
+            <div id="chat-output" class="bg-white/10 p-6 rounded-2xl h-48 overflow-y-auto text-sm border border-white/10 italic">
+                El asistente está listo para escucharte...
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-white py-12 border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-400 text-sm">© 2024 Tecnología Para Todos. Desarrollado con ❤️ y Gemini AI.</p>
-        </div>
+    <footer class="text-center py-10 text-gray-400 text-sm">
+        &copy; 2024 Tecnología Para Todos | Tu Guía Digital
     </footer>
-
-    <!-- Chat Modal -->
-    <div id="chat-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-xl rounded-[2.5rem] overflow-hidden shadow-2xl">
-            <div class="bg-blue-600 p-6 text-white flex justify-between items-center">
-                <span class="font-bold flex items-center gap-2"><i class="fas fa-microchip"></i> Consultoría Tech</span>
-                <button onclick="closeAssistant()" class="text-2xl">&times;</button>
-            </div>
-            <div id="chat-box" class="h-96 overflow-y-auto p-6 space-y-4 bg-gray-50">
-                <div class="bg-blue-100 text-blue-800 p-4 rounded-2xl rounded-tl-none mr-12 text-sm">¡Hola! Soy tu consultor de **Tecnología Para Todos**. ¿Qué duda técnica tienes hoy?</div>
-            </div>
-            <div class="p-4 bg-white border-t flex gap-2">
-                <input id="chat-input" type="text" class="flex-grow p-4 bg-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600" placeholder="Pregunta sobre Windows, Android, Mac...">
-                <button onclick="sendQuestion()" class="bg-blue-600 text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
 
     <script>
         const apiKey = "";
-        const modelName = "gemini-2.5-flash-preview-09-2025";
+        const model = "gemini-2.5-flash-preview-09-2025";
 
-        // Función base de llamada a Gemini con manejo de errores
-        async function callGemini(prompt, systemPrompt = "", useSearch = false) {
+        // Función Genérica para llamar a la API
+        async function fetchGemini(prompt, isSearch = false) {
             try {
-                const payload = {
-                    contents: [{ parts: [{ text: prompt }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
-                };
-                if (useSearch) payload.tools = [{ "google_search": {} }];
-
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        tools: isSearch ? [{ "google_search": {} }] : undefined
+                    })
                 });
-
-                if (!response.ok) throw new Error('Network response error');
                 const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-            } catch (error) {
-                console.error("Gemini Error:", error);
-                return "ERROR";
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Error";
+            } catch (e) {
+                return "Error de conexión";
             }
         }
 
-        // --- FUNCIONALIDAD: SINCRONIZAR NOTICIAS (ROBUSTA) ---
+        // --- SINCRONIZACIÓN DE NOTICIAS (NUEVO MÉTODO DIRECTO A HTML) ---
         async function syncNews() {
-            const btn = document.getElementById('sync-btn');
-            const text = document.getElementById('sync-text');
-            const icon = document.getElementById('sync-icon');
             const grid = document.getElementById('news-grid');
+            const btnText = document.getElementById('sync-text');
+            const icon = document.getElementById('sync-icon');
 
-            btn.disabled = true;
-            text.innerText = "Buscando noticias...";
+            // UI: Estado de carga
+            btnText.innerText = "Buscando en Google...";
             icon.classList.add('fa-spin');
-            grid.innerHTML = `<div class="md:col-span-3 flex justify-center py-20"><div class="loader-dots flex gap-2"><div class="w-3 h-3 bg-blue-600 rounded-full"></div><div class="w-3 h-3 bg-blue-600 rounded-full"></div><div class="w-3 h-3 bg-blue-600 rounded-full"></div></div></div>`;
+            grid.innerHTML = `
+                <div class="md:col-span-3 flex flex-col items-center py-20 loading-pulse">
+                    <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-blue-600 font-bold">La IA está redactando las noticias actuales...</p>
+                </div>
+            `;
 
-            const prompt = `Busca las 3 noticias de tecnología más importantes y recientes de hoy en español. Devuélvelas estrictamente en formato JSON plano (un array de objetos). Cada objeto debe tener: 'titulo', 'descripcion' (máximo 100 caracteres), 'categoria' y 'enlace'. No incluyas explicaciones, solo el JSON.`;
-            const system = "Eres un recolector de noticias tech. Tu salida debe ser un JSON válido que empiece con [ y termine con ]. No uses bloques de código markdown.";
+            const prompt = `
+                Busca las 3 noticias de tecnología más importantes de las últimas 24 horas en español.
+                Para cada noticia, genera un bloque de código HTML que use exactamente estas clases de Tailwind:
+                'bg-white p-8 rounded-[2.5rem] news-card flex flex-col h-full'.
+                Dentro del HTML incluye:
+                1. Un <span> con la categoría en azul.
+                2. Un <h3> con el título en negrita.
+                3. Un <p> con un resumen de 2 líneas.
+                4. Un <a> (botón) que diga 'Leer más' y tenga el enlace REAL de la noticia.
+                DEVUELVE SOLO EL CÓDIGO HTML, SIN EXPLICACIONES NI BLOQUES DE CÓDIGO MARKDOWN.
+            `;
 
-            const rawResponse = await callGemini(prompt, system, true);
+            const htmlResponse = await fetchGemini(prompt, true);
 
-            try {
-                // Limpieza de la respuesta para extraer solo el JSON
-                let jsonStr = rawResponse;
-                const startIdx = jsonStr.indexOf('[');
-                const endIdx = jsonStr.lastIndexOf(']') + 1;
-                
-                if (startIdx === -1) throw new Error("No JSON found");
-                jsonStr = jsonStr.substring(startIdx, endIdx);
-                
-                const news = JSON.parse(jsonStr);
-                grid.innerHTML = '';
+            // Limpieza básica por si la IA pone ```html
+            const cleanHTML = htmlResponse.replace(/```html/g, '').replace(/```/g, '').trim();
 
-                news.forEach(item => {
-                    grid.innerHTML += `
-                        <div class="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden card-hover flex flex-col h-full">
-                            <div class="h-32 bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center relative">
-                                <span class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider">${item.categoria || 'NOTICIA'}</span>
-                                <i class="fas fa-newspaper text-blue-200 text-4xl"></i>
-                            </div>
-                            <div class="p-8 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-gray-900 mb-4 leading-snug">${item.titulo}</h3>
-                                <p class="text-gray-500 text-sm mb-8 flex-grow">${item.descripcion}</p>
-                                <a href="${item.enlace}" target="_blank" class="block w-full text-center bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-blue-600 transition shadow-lg">Leer Noticia</a>
-                            </div>
-                        </div>
-                    `;
-                });
-
-            } catch (err) {
-                console.error("Parse Error:", err);
-                grid.innerHTML = `<div class="md:col-span-3 text-center py-20 text-red-500 font-medium"><i class="fas fa-exclamation-triangle mb-2 text-2xl"></i><br>No se pudieron cargar las noticias. Por favor, intenta de nuevo.</div>`;
-            } finally {
-                btn.disabled = false;
-                text.innerText = "Sincronizar Noticias de Hoy";
-                icon.classList.remove('fa-spin');
+            if (cleanHTML !== "Error" && cleanHTML.length > 50) {
+                grid.innerHTML = cleanHTML;
+            } else {
+                grid.innerHTML = `
+                    <div class="md:col-span-3 bg-red-50 text-red-600 p-10 rounded-3xl text-center border border-red-100">
+                        <i class="fas fa-exclamation-circle text-3xl mb-2"></i>
+                        <p class="font-bold">No pudimos conectar con las noticias. Por favor, intenta presionar el botón de nuevo.</p>
+                    </div>
+                `;
             }
+
+            btnText.innerText = "Sincronizar Noticias";
+            icon.classList.remove('fa-spin');
         }
 
-        // --- HERRAMIENTAS DE IA ---
-        async function generateDraft() {
-            const topic = document.getElementById('ai-topic').value;
-            const output = document.getElementById('ai-output');
-            const btn = document.getElementById('draft-btn');
-            if (!topic) return;
-
-            btn.disabled = true;
-            btn.innerText = "Analizando...";
-            output.innerHTML = `<p class="text-blue-600">Generando borrador para: <b>${topic}</b>...</p>`;
-
-            const prompt = `Crea un esquema de artículo y 3 curiosidades sobre: ${topic}.`;
-            const system = "Eres un redactor técnico de 'Tecnología Para Todos'. Responde en formato HTML simple (usa p, h4, ul, li).";
-            
-            const response = await callGemini(prompt, system);
-            output.innerHTML = response;
-            btn.disabled = false;
-            btn.innerText = "Generar Borrador";
-        }
-
-        // --- ASISTENTE MODAL ---
-        function openAssistant() { document.getElementById('chat-modal').classList.remove('hidden'); }
-        function closeAssistant() { document.getElementById('chat-modal').classList.add('hidden'); }
-
-        async function sendQuestion() {
+        // --- CHAT ASISTENTE ---
+        async function askAI() {
             const input = document.getElementById('chat-input');
-            const box = document.getElementById('chat-box');
-            const text = input.value.trim();
-            if (!text) return;
+            const output = document.getElementById('chat-output');
+            const val = input.value.trim();
+            if(!val) return;
 
-            box.innerHTML += `<div class="bg-gray-200 text-gray-800 p-4 rounded-2xl rounded-tr-none ml-12 text-sm text-right">${text}</div>`;
+            output.innerHTML = "Pensando respuesta...";
             input.value = "";
-            box.scrollTop = box.scrollHeight;
 
-            const response = await callGemini(text, "Eres el asistente experto de Tecnología Para Todos. Da respuestas claras y fáciles de entender para principiantes.");
-            
-            box.innerHTML += `<div class="bg-blue-100 text-blue-900 p-4 rounded-2xl rounded-tl-none mr-12 text-sm">${response.replace(/\n/g, '<br>')}</div>`;
-            box.scrollTop = box.scrollHeight;
+            const res = await fetchGemini(`Responde de forma breve y amable como experto de 'Tecnología Para Todos': ${val}`);
+            output.innerHTML = res.replace(/\n/g, '<br>');
         }
     </script>
 </body>
