@@ -138,7 +138,7 @@
             </h2>
             <div id="chat-box" class="h-64 overflow-y-auto mb-6 p-6 bg-slate-50 rounded-2xl space-y-4 text-sm border border-slate-100">
                 <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">
-                    ¡Hola! Soy el experto de **Tecnología Para Todos**. ¿En qué puedo ayudarte hoy?
+                    ¡Hola! Soy el experto de **Tecnología Pa Todos**. ¿En qué puedo ayudarte hoy?
                 </div>
             </div>
             <div class="flex gap-2">
@@ -196,7 +196,7 @@
             <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="hover:text-blue-600"><i class="fab fa-facebook text-xl"></i></a>
             <a href="#" class="hover:text-blue-400"><i class="fab fa-twitter text-xl"></i></a>
         </div>
-        <p class="text-slate-400 text-sm">© 2024 Tecnología Para Todos.</p>
+        <p class="text-slate-400 text-sm">© 2024 Tecnología Pa Todos.</p>
         <button onclick="showPrivacy()" class="text-slate-500 text-xs underline hover:text-blue-600">Política de Tratamiento de Datos Personales</button>
     </footer>
 
@@ -218,6 +218,17 @@
         let customKey = localStorage.getItem('TPT_KEY') || "";
         const model = "gemini-2.5-flash-preview-09-2025";
 
+        function showPrivacy() {
+        document.getElementById('main-content').classList.add('hidden');
+        document.getElementById('privacy-content').classList.remove('hidden');
+        window.scrollTo(0,0);
+        }
+
+        function showHome() {
+        document.getElementById('privacy-content').classList.add('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+        window.scrollTo(0,0);
+        }
         function toggleConfig() { document.getElementById('config-modal').classList.toggle('hidden'); }
         function saveApiKey() {
             const v = document.getElementById('api-key-input').value.trim();
@@ -287,17 +298,7 @@
             box.scrollTop = box.scrollHeight;
         }
 
-        function showPrivacy() {
-        document.getElementById('main-content').classList.add('hidden');
-        document.getElementById('privacy-content').classList.remove('hidden');
-        window.scrollTo(0,0);
-        }
-
-        function showHome() {
-        document.getElementById('privacy-content').classList.add('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-        window.scrollTo(0,0);
-        }
+        
     </script>
 </body>
 </html>
