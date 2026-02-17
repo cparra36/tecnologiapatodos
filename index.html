@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnología Pa Todos | Noticias e IA</title>
+    <title>Tecnología Para Todos | Noticias e IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -43,7 +43,7 @@
                 <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg">
                     <i class="fas fa-microchip"></i>
                 </div>
-                <span class="text-xl font-bold text-blue-900 tracking-tight">Tecnología Pa Todos</span>
+                <span class="text-xl font-bold text-blue-900 tracking-tight">Tecnología Para Todos</span>
             </div>
             <div class="flex items-center gap-4">
                 <div class="hidden md:flex gap-6 font-medium text-slate-600 mr-4">
@@ -138,7 +138,7 @@
             </h2>
             <div id="chat-box" class="h-64 overflow-y-auto mb-6 p-6 bg-slate-50 rounded-2xl space-y-4 text-sm border border-slate-100">
                 <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">
-                    ¡Hola! Soy el experto de **Tecnología Pa Todos**. ¿En qué puedo ayudarte hoy?
+                    ¡Hola! Soy el experto de **Tecnología Para Todos**. ¿En qué puedo ayudarte hoy?
                 </div>
             </div>
             <div class="flex gap-2">
@@ -147,57 +147,6 @@
             </div>
         </div>
     </section>
- 
-    <!-- PÁGINA DE PRIVACIDAD (Oculta por defecto) -->
-    <main id="privacy-content" class="hidden py-16 max-w-4xl mx-auto px-6">
-        <button onclick="showHome()" class="mb-8 text-blue-600 font-bold flex items-center gap-2">
-            <i class="fas fa-arrow-left"></i> Volver al Inicio
-        </button>
-        <h1 class="text-4xl font-black mb-8">Política de Tratamiento de Datos Personales</h1>
-        <div class="prose prose-slate max-w-none space-y-6 text-slate-600 leading-relaxed">
-            <p><strong>Última actualización:</strong> 16 de mayo de 2024</p>
-            
-            <section>
-                <h2 class="text-2xl font-bold text-slate-900 mb-3">1. Identificación del Responsable</h2>
-                <p>Tecnología Para Todos informa a los usuarios que los datos personales recolectados a través de este sitio web serán tratados conforme a las leyes de protección de datos vigentes.</p>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold text-slate-900 mb-3">2. Finalidad del Tratamiento</h2>
-                <p>Los datos que usted proporcione (nombre, correo electrónico o consultas técnicas) se utilizarán para:</p>
-                <ul class="list-disc ml-6 space-y-2">
-                    <li>Responder consultas a través del asistente de IA o formulario de contacto.</li>
-                    <li>Mejorar la experiencia de usuario y la calidad de las respuestas de nuestro modelo de lenguaje.</li>
-                    <li>Enviar información relevante sobre tecnología si el usuario lo solicita.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold text-slate-900 mb-3">3. Uso de Inteligencia Artificial</h2>
-                <p>Este sitio utiliza la API de Google Gemini para procesar consultas en tiempo real. Al utilizar el asistente, usted acepta que sus consultas (sin datos sensibles) sean procesadas por proveedores tecnológicos para generar una respuesta.</p>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold text-slate-900 mb-3">4. Enlaces de Afiliación</h2>
-                <p>Recomendamos herramientas como <strong>OptiSigns</strong> y <strong>Fliki.ai</strong>. Tenga en cuenta que al hacer clic en estos enlaces, usted será redirigido a sus respectivos sitios web, los cuales tienen sus propias políticas de privacidad.</p>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold text-slate-900 mb-3">5. Derechos del Usuario</h2>
-                <p>Usted tiene derecho a conocer, actualizar, rectificar o solicitar la eliminación de sus datos personales enviando una solicitud a través de nuestros canales oficiales en la Fanpage de Facebook.</p>
-            </section>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-slate-200 text-center space-y-4">
-        <div class="flex justify-center gap-6 text-slate-400">
-            <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="hover:text-blue-600"><i class="fab fa-facebook text-xl"></i></a>
-            <a href="#" class="hover:text-blue-400"><i class="fab fa-twitter text-xl"></i></a>
-        </div>
-        <p class="text-slate-400 text-sm">© 2024 Tecnología Pa Todos.</p>
-        <button onclick="showPrivacy()" class="text-slate-500 text-xs underline hover:text-blue-600">Política de Tratamiento de Datos Personales</button>
-    </footer>
 
     <!-- Configuración API -->
     <div id="config-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
@@ -217,16 +166,6 @@
         let customKey = localStorage.getItem('TPT_KEY') || "";
         const model = "gemini-2.5-flash-preview-09-2025";
 
-        function showPrivacy() {
-        document.getElementById('main-content').classList.add('hidden');
-        document.getElementById('privacy-content').classList.remove('hidden');
-        window.scrollTo(0,0);
-        }
-        function showHome() {
-        document.getElementById('privacy-content').classList.add('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-        window.scrollTo(0,0);
-        }
         function toggleConfig() { document.getElementById('config-modal').classList.toggle('hidden'); }
         function saveApiKey() {
             const v = document.getElementById('api-key-input').value.trim();
@@ -289,13 +228,36 @@
             box.innerHTML += `<div class="bg-slate-200 p-4 rounded-2xl rounded-tr-none ml-12 text-right text-slate-800">${val}</div>`;
             input.value = "";
             box.scrollTop = box.scrollHeight;
-            const res = await fetchAI(val, "Eres el asistente experto de Tecnología Pa Todos.");
+            const res = await fetchAI(val, "Eres el asistente experto de Tecnología Para Todos.");
             if(res) {
                 box.innerHTML += `<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">${res.replace(/\n/g, '<br>')}</div>`;
             }
             box.scrollTop = box.scrollHeight;
         }
+	function togglePrivacy() {
+    document.getElementById('privacy-modal').classList.toggle('hidden');
+	}
+    </script>
+<footer class="py-8 border-t border-slate-200 text-center">
+    <p class="text-slate-400 text-sm">
+        © 2026 Tecnología Para Todos. 
+        <button onclick="togglePrivacy()" class="text-blue-600 hover:underline ml-2">Tratamiento de Datos</button>
+    </p>
+</footer>
 
-       </script>
+<div id="privacy-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm z-[110] hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-[2.5rem] p-8 max-h-[80vh] overflow-y-auto">
+        <h2 class="text-2xl font-bold mb-6 text-slate-900">Política de Tratamiento de Datos</h2>
+        <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
+            <p><strong>1. Responsable:</strong> Tecnología Para Todos procesa la información ingresada en el chat y la API Key con el único fin de proporcionar funcionalidad al sitio.</p>
+            <p><strong>2. Finalidad:</strong> Los datos del chat se envían a los modelos de Google AI Studio para generar respuestas. La API Key se almacena localmente en su navegador (localStorage) y no se guarda en nuestros servidores.</p>
+            <p><strong>3. Derechos:</strong> Usted puede eliminar su API Key en cualquier momento borrando los datos de navegación o desde el panel de configuración del sitio.</p>
+            <p><strong>4. Herramientas de Terceros:</strong> Este sitio utiliza servicios de Google (Gemini API) y enlaces de afiliados (OptiSigns, Fliki). Le recomendamos revisar las políticas de privacidad de dichos proveedores.</p>
+        </div>
+        <button onclick="togglePrivacy()" class="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold">Entendido</button>
+    </div>
+</div>
 </body>
+
+
 </html>
