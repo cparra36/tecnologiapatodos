@@ -286,6 +286,18 @@
             }
             box.scrollTop = box.scrollHeight;
         }
+
+        function showPrivacy() {
+        document.getElementById('main-content').classList.add('hidden');
+        document.getElementById('privacy-content').classList.remove('hidden');
+        window.scrollTo(0,0);
+        }
+
+        function showHome() {
+        document.getElementById('privacy-content').classList.add('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+        window.scrollTo(0,0);
+        }
     </script>
 </body>
 </html>
