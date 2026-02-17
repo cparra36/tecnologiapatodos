@@ -223,7 +223,6 @@
         document.getElementById('privacy-content').classList.remove('hidden');
         window.scrollTo(0,0);
         }
-
         function showHome() {
         document.getElementById('privacy-content').classList.add('hidden');
         document.getElementById('main-content').classList.remove('hidden');
@@ -291,14 +290,13 @@
             box.innerHTML += `<div class="bg-slate-200 p-4 rounded-2xl rounded-tr-none ml-12 text-right text-slate-800">${val}</div>`;
             input.value = "";
             box.scrollTop = box.scrollHeight;
-            const res = await fetchAI(val, "Eres el asistente experto de Tecnología Para Todos.");
+            const res = await fetchAI(val, "Eres el asistente experto de Tecnología Pa Todos.");
             if(res) {
                 box.innerHTML += `<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">${res.replace(/\n/g, '<br>')}</div>`;
             }
             box.scrollTop = box.scrollHeight;
         }
 
-        
-    </script>
+       </script>
 </body>
 </html>
