@@ -3,35 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnología Pa Todos | Noticias e IA</title>
+    <title>Tecnología Pa Todos | Guía y Herramientas Tech</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
-        
-        /* Ajuste de tarjetas para que sean uniformes */
-        .news-card { 
-            display: flex; 
-            flex-direction: column; 
-            height: 100%; 
-            transition: all 0.3s ease;
-        }
-        .news-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
-        }
-        
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #2563eb;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .card-anim { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-anim:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .hidden { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -39,7 +20,7 @@
     <!-- Navegación -->
     <nav class="sticky top-0 z-50 glass border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showHome()">
                 <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg">
                     <i class="fas fa-microchip"></i>
                 </div>
@@ -47,217 +28,209 @@
             </div>
             <div class="flex items-center gap-4">
                 <div class="hidden md:flex gap-6 font-medium text-slate-600 mr-4">
-                    <a href="#noticias" class="hover:text-blue-600 transition">Noticias</a>
-                    <a href="#herramientas" class="hover:text-blue-600 transition">Herramientas</a>
-                    <a href="#asistente" class="hover:text-blue-600 transition">Asistente</a>
+                    <a href="#noticias" onclick="showHome()" class="hover:text-blue-600 transition">Noticias</a>
+                    <a href="#herramientas" onclick="showHome()" class="hover:text-blue-600 transition">Herramientas</a>
+                    <a href="#contacto" onclick="showHome()" class="hover:text-blue-600 transition">Contacto</a>
                 </div>
-                <button onclick="toggleConfig()" class="text-slate-400 hover:text-blue-600 transition text-xl p-2">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="text-blue-600 text-xl p-2 hover:scale-110 transition">
+                    <i class="fab fa-facebook"></i>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="py-16 bg-white">
-        <div class="max-w-5xl mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
-                Información que <span class="text-blue-600">te conecta.</span>
-            </h1>
-            <p class="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
-                Noticias reales de tecnología obtenidas mediante IA y herramientas recomendadas para tu éxito digital.
-            </p>
-            <button onclick="syncNews()" id="btn-sync" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 mx-auto shadow-xl hover:bg-blue-700 transition active:scale-95">
-                <i class="fas fa-sync-alt" id="sync-icon"></i>
-                <span id="sync-text">Sincronizar Noticias Reales</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Sección de Noticias -->
-    <section id="noticias" class="py-12 max-w-7xl mx-auto px-4">
-        <div class="mb-10">
-            <h2 class="text-3xl font-bold text-slate-900">Últimas Tendencias ✨</h2>
-            <p class="text-slate-500">Haz clic en sincronizar para obtener fuentes reales de hoy.</p>
-        </div>
-        
-        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Estado inicial vacío -->
-            <div class="col-span-full border-2 border-dashed border-slate-200 rounded-[2.5rem] py-20 text-center bg-white/50">
-                <i class="far fa-newspaper text-5xl text-slate-200 mb-4"></i>
-                <p class="text-slate-400 font-medium">No hay noticias. Usa el botón de sincronizar arriba.</p>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="main-content">
+        <!-- Hero -->
+        <header class="py-20 bg-white">
+            <div class="max-w-5xl mx-auto px-4 text-center">
+                <span class="bg-blue-50 text-blue-700 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block">Contenido de Calidad, Sin Complicaciones</span>
+                <h1 class="text-4xl md:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+                    Tu puente hacia el <span class="text-blue-600">Mundo Digital.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Descubre las mejores herramientas, noticias seleccionadas y asesoría tecnológica para potenciar tu productividad.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#herramientas" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold shadow-xl hover:bg-blue-700 transition active:scale-95">
+                        Explorar Herramientas
+                    </a>
+                    <a href="#noticias" class="bg-slate-100 text-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-200 transition">
+                        Ver Tendencias
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Recomendaciones -->
-    <section id="herramientas" class="py-20 bg-slate-900 rounded-[3rem] mx-4 mb-20 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-8 relative z-10 text-white">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Aliados Tecnológicos</h2>
-                <p class="text-slate-400">Herramientas que impulsan tu productividad.</p>
+        <!-- Sección de Noticias Curadas -->
+        <section id="noticias" class="py-16 max-w-7xl mx-auto px-4">
+            <div class="text-center md:text-left mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Tendencias Seleccionadas ✨</h2>
+                <p class="text-slate-500">Lo más relevante del mundo tecnológico esta semana.</p>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- OptiSigns -->
-                <div class="bg-white p-8 rounded-[2rem] text-slate-900 flex flex-col justify-between">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Noticia 1 -->
+                <article class="bg-white p-8 rounded-[2.5rem] card-anim border border-slate-100 shadow-sm flex flex-col justify-between h-full">
                     <div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-xl flex items-center justify-center text-xl">
-                                <i class="fas fa-tv"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold">OptiSigns</h3>
-                        </div>
-                        <p class="text-slate-600 mb-6">Gestión de cartelería digital para cualquier pantalla. Crea contenido visual impactante para tu negocio.</p>
+                        <span class="text-blue-600 font-bold text-xs uppercase mb-2 block">Inteligencia Artificial</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 leading-snug">Gemini 2.5: La nueva era del procesamiento de datos</h3>
+                        <p class="text-slate-500 text-sm mb-8 leading-relaxed">Google revoluciona el mercado con un modelo capaz de analizar grandes volúmenes de información en segundos.</p>
                     </div>
-                    <a href="https://www.optisigns.com/?ref=tecnoxall" target="_blank" class="block text-center bg-orange-600 text-white py-4 rounded-xl font-bold hover:bg-orange-700 transition">Probar Gratis Ahora</a>
-                </div>
+                    <a href="https://blog.google/" target="_blank" class="block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Leer Noticia</a>
+                </article>
 
-                <!-- Fliki -->
-                <div class="bg-white p-8 rounded-[2rem] text-slate-900 flex flex-col justify-between">
+                <!-- Noticia 2 -->
+                <article class="bg-white p-8 rounded-[2.5rem] card-anim border border-slate-100 shadow-sm flex flex-col justify-between h-full">
                     <div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="bg-pink-100 text-pink-600 w-12 h-12 rounded-xl flex items-center justify-center text-xl">
-                                <i class="fas fa-video"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold">Fliki.ai</h3>
-                        </div>
-                        <p class="text-slate-600 mb-6">Crea videos virales a partir de simples textos. Voces realistas con IA para tus redes sociales.</p>
+                        <span class="text-emerald-600 font-bold text-xs uppercase mb-2 block">Ciberseguridad</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 leading-snug">Cómo proteger tu cuenta de WhatsApp en 2024</h3>
+                        <p class="text-slate-500 text-sm mb-8 leading-relaxed">Nuevas configuraciones de privacidad que debes activar hoy mismo para evitar suplantaciones.</p>
                     </div>
-                    <a href="https://fliki.ai/?via=Tecnologiapatodos" target="_blank" class="block text-center bg-pink-600 text-white py-4 rounded-xl font-bold hover:bg-pink-700 transition">Crear Video Gratis</a>
+                    <a href="https://www.xataka.com/" target="_blank" class="block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Leer Tutorial</a>
+                </article>
+
+                <!-- Noticia 3 -->
+                <article class="bg-white p-8 rounded-[2.5rem] card-anim border border-slate-100 shadow-sm flex flex-col justify-between h-full">
+                    <div>
+                        <span class="text-orange-600 font-bold text-xs uppercase mb-2 block">Hardware</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 leading-snug">Laptops de alto rendimiento: ¿Qué comprar hoy?</h3>
+                        <p class="text-slate-500 text-sm mb-8 leading-relaxed">Analizamos las mejores opciones para creadores de contenido y trabajo remoto este año.</p>
+                    </div>
+                    <a href="https://www.wired.com/" target="_blank" class="block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Ver Guía</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Recomendaciones Destacadas -->
+        <section id="herramientas" class="py-24 bg-slate-900 rounded-[3rem] mx-4 mb-20 overflow-hidden relative shadow-2xl">
+            <div class="max-w-7xl mx-auto px-8 relative z-10 text-white">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">Herramientas de Alto Impacto</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto">Plataformas probadas y recomendadas por nuestro equipo para mejorar tu presencia digital.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-10">
+                    <!-- OptiSigns -->
+                    <div class="bg-white p-10 rounded-[2.5rem] text-slate-900 flex flex-col justify-between hover:scale-[1.02] transition duration-300">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="bg-orange-100 text-orange-600 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">OptiSigns</h3>
+                                    <span class="text-[10px] bg-orange-50 text-orange-600 px-2 py-0.5 rounded font-bold uppercase">Digital Signage</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 mb-8 leading-relaxed">La solución líder para gestionar pantallas publicitarias y cartelería digital. Controla todo desde la nube de forma remota.</p>
+                        </div>
+                        <a href="https://www.optisigns.com/?ref=tecnoxall" target="_blank" class="block text-center bg-orange-600 text-white py-4 rounded-2xl font-bold hover:bg-orange-700 transition shadow-lg shadow-orange-100">Probar Gratis Ahora</a>
+                    </div>
+
+                    <!-- Fliki -->
+                    <div class="bg-white p-10 rounded-[2.5rem] text-slate-900 flex flex-col justify-between hover:scale-[1.02] transition duration-300">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="bg-pink-100 text-pink-600 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Fliki.ai</h3>
+                                    <span class="text-[10px] bg-pink-50 text-pink-600 px-2 py-0.5 rounded font-bold uppercase">Video IA</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 mb-8 leading-relaxed">Crea contenido para TikTok, Reels y YouTube en segundos. Convierte tus textos en videos con voces realistas de IA.</p>
+                        </div>
+                        <a href="https://fliki.ai/?via=Tecnologiapatodos" target="_blank" class="block text-center bg-pink-600 text-white py-4 rounded-2xl font-bold hover:bg-pink-700 transition shadow-lg shadow-pink-100">Crear Video Gratis</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <!-- Decoración -->
+            <div class="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-[120px]"></div>
+        </section>
 
-    <!-- Asistente IA -->
-    <section id="asistente" class="max-w-4xl mx-auto px-4 mb-20">
-        <div class="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm">
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-                <i class="fas fa-robot text-blue-600"></i> Asistente de Tecnología
-            </h2>
-            <div id="chat-box" class="h-64 overflow-y-auto mb-6 p-6 bg-slate-50 rounded-2xl space-y-4 text-sm border border-slate-100">
-                <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">
-                    ¡Hola! Soy el experto de **Tecnología Pa Todos**. ¿En qué puedo ayudarte hoy?
+        <!-- Sección de Contacto Directo (Reemplazo de Chat IA) -->
+        <section id="contacto" class="max-w-4xl mx-auto px-4 mb-24">
+            <div class="bg-blue-600 rounded-[2.5rem] p-12 text-center text-white shadow-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-4">¿Necesitas asesoría personalizada?</h2>
+                    <p class="text-blue-100 mb-10 max-w-md mx-auto">Si tienes dudas técnicas o quieres implementar estas herramientas en tu negocio, hablemos directamente.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="https://m.me/tecnologiapatodos" target="_blank" class="bg-white text-blue-600 px-8 py-4 rounded-2xl font-bold hover:bg-blue-50 transition flex items-center gap-3">
+                            <i class="fab fa-facebook-messenger"></i> Messenger
+                        </a>
+                        <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="bg-blue-500 text-white border border-blue-400 px-8 py-4 rounded-2xl font-bold hover:bg-blue-400 transition flex items-center gap-3">
+                            <i class="fas fa-envelope"></i> Contactar
+                        </a>
+                    </div>
                 </div>
+                <i class="fas fa-comments absolute -bottom-10 -right-10 text-white/10 text-[200px]"></i>
             </div>
-            <div class="flex gap-2">
-                <input id="chat-input" type="text" class="flex-grow p-4 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600" placeholder="Escribe tu duda técnica...">
-                <button onclick="sendChat()" class="bg-blue-600 text-white px-8 rounded-2xl hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Configuración API -->
-    <div id="config-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8">
-            <h2 class="text-2xl font-bold mb-4">Configuración de IA</h2>
-            <p class="text-slate-500 text-sm mb-6">Pega tu API Key de Google AI Studio para activar las funciones en vivo.</p>
-            <input id="api-key-input" type="password" class="w-full p-4 bg-slate-100 rounded-2xl mb-4 outline-none border border-slate-200" placeholder="API Key aquí...">
-            <div class="flex gap-3">
-                <button onclick="saveApiKey()" class="flex-grow bg-blue-600 text-white py-4 rounded-2xl font-bold">Guardar</button>
-                <button onclick="toggleConfig()" class="bg-slate-100 px-6 rounded-2xl font-bold">Cerrar</button>
-            </div>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="block text-center mt-6 text-blue-600 text-xs underline">Obtener API Key Gratis</a>
+    <!-- PÁGINA DE PRIVACIDAD -->
+    <main id="privacy-content" class="hidden py-20 max-w-4xl mx-auto px-6">
+        <button onclick="showHome()" class="mb-8 text-blue-600 font-bold flex items-center gap-2 hover:translate-x-[-4px] transition-transform">
+            <i class="fas fa-arrow-left"></i> Volver al Inicio
+        </button>
+        <h1 class="text-4xl font-black mb-10 text-slate-900">Política de Privacidad</h1>
+        <div class="prose prose-slate max-w-none space-y-8 text-slate-600 leading-relaxed">
+            <p class="text-sm bg-slate-100 p-4 rounded-xl"><strong>Última actualización:</strong> 25 de marzo de 2024</p>
+            
+            <section>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">1. Uso de la Información</h2>
+                <p>En <strong>Tecnología Pa Todos</strong> valoramos tu privacidad. Este sitio es informativo y no recolecta datos personales de forma automática a menos que decidas contactarnos a través de nuestras redes sociales externas.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">2. Enlaces a Terceros</h2>
+                <p>Nuestro sitio incluye enlaces de afiliación a herramientas como <strong>OptiSigns</strong> y <strong>Fliki.ai</strong>. Al hacer clic en estos enlaces, serás redirigido a sus plataformas, las cuales cuentan con sus propias políticas de privacidad y términos de servicio.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">3. Cookies</h2>
+                <p>Este sitio web utiliza cookies técnicas básicas para asegurar el correcto funcionamiento de la navegación. No rastreamos tu comportamiento para fines publicitarios de terceros.</p>
+            </section>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-slate-200 text-center space-y-6 bg-white">
+        <div class="flex justify-center gap-8 text-slate-400">
+            <a href="https://www.facebook.com/tecnologiapatodos" target="_blank" class="hover:text-blue-600 transition-colors"><i class="fab fa-facebook-square text-2xl"></i></a>
+            <a href="#" class="hover:text-slate-900 transition-colors"><i class="fab fa-instagram text-2xl"></i></a>
+        </div>
+        <p class="text-slate-500 font-medium">© 2024 Tecnología Pa Todos</p>
+        <button onclick="showPrivacy()" class="text-slate-400 text-xs hover:text-blue-600 transition-colors underline underline-offset-4 uppercase tracking-widest">Tratamiento de Datos Personales</button>
+    </footer>
 
     <script>
-        let customKey = localStorage.getItem('TPT_KEY') || "";
-        const model = "gemini-2.5-flash-preview-09-2025";
-
-        function toggleConfig() { document.getElementById('config-modal').classList.toggle('hidden'); }
-        function saveApiKey() {
-            const v = document.getElementById('api-key-input').value.trim();
-            if(v) { localStorage.setItem('TPT_KEY', v); customKey = v; toggleConfig(); alert("¡Activado!"); }
+        // Navegación interna simple y robusta
+        function showPrivacy() {
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('privacy-content').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function showHome() {
+            document.getElementById('privacy-content').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        async function fetchAI(prompt, system = "", useSearch = false) {
-            if(!customKey) { toggleConfig(); return null; }
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${customKey}`;
-            const body = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: system ? { parts: [{ text: system }] } : undefined,
-                tools: useSearch ? [{ "google_search": {} }] : undefined
-            };
-            try {
-                const res = await fetch(url, { method: 'POST', body: JSON.stringify(body), headers: {'Content-Type': 'application/json'} });
-                const data = await res.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text;
-            } catch (e) { return null; }
-        }
-
-        async function syncNews() {
-            const grid = document.getElementById('news-grid');
-            const icon = document.getElementById('sync-icon');
-            const text = document.getElementById('sync-text');
-
-            icon.classList.add('fa-spin');
-            text.innerText = "Buscando noticias reales...";
-            grid.innerHTML = '<div class="col-span-full flex justify-center py-20"><div class="loader"></div></div>';
-
-            const prompt = `
-                Busca las 3 noticias de tecnología más importantes de hoy en español.
-                Para cada noticia genera una tarjeta HTML exactamente con estas clases:
-                'bg-white p-8 rounded-[2rem] news-card border border-slate-100 shadow-sm flex flex-col justify-between'.
-                Dentro del HTML DEBES INCLUIR:
-                1. <span class="text-blue-600 font-bold text-xs uppercase mb-2">CATEGORIA</span>
-                2. <h3 class="text-xl font-bold text-slate-900 mb-4">TITULO REAL</h3>
-                3. <p class="text-slate-500 text-sm mb-8">RESUMEN CORTO</p>
-                4. <a href="URL_REAL_DE_LA_FUENTE" target="_blank" class="block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Leer Noticia Completa</a>
-                REQUISITO CRÍTICO: El href debe ser el link real del artículo de noticias.
-                DEVUELVE SOLO EL CÓDIGO HTML, sin markdown.
-            `;
-
-            const html = await fetchAI(prompt, "Eres un portal de noticias llamado Tecnología Para Todos.", true);
-            
-            if(html) {
-                grid.innerHTML = html.replace(/```html/g, '').replace(/```/g, '').trim();
-            } else {
-                grid.innerHTML = '<p class="col-span-full text-center py-10 text-red-500">Error al sincronizar. Revisa tu API Key en el icono de configuración.</p>';
-            }
-            icon.classList.remove('fa-spin');
-            text.innerText = "Sincronizar Noticias Reales";
-        }
-
-        async function sendChat() {
-            const input = document.getElementById('chat-input');
-            const box = document.getElementById('chat-box');
-            const val = input.value.trim();
-            if(!val) return;
-            box.innerHTML += `<div class="bg-slate-200 p-4 rounded-2xl rounded-tr-none ml-12 text-right text-slate-800">${val}</div>`;
-            input.value = "";
-            box.scrollTop = box.scrollHeight;
-            const res = await fetchAI(val, "Eres el asistente experto de Tecnología Pa Todos.");
-            if(res) {
-                box.innerHTML += `<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none mr-12 shadow-sm">${res.replace(/\n/g, '<br>')}</div>`;
-            }
-            box.scrollTop = box.scrollHeight;
-        }
-	function togglePrivacy() {
-    document.getElementById('privacy-modal').classList.toggle('hidden');
-	}
+        // Interacción simple de scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
     </script>
-<footer class="py-8 border-t border-slate-200 text-center">
-    <p class="text-slate-400 text-sm">
-        © 2026 Tecnología Pa Todos. 
-        <button onclick="togglePrivacy()" class="text-blue-600 hover:underline ml-2">Tratamiento de Datos</button>
-    </p>
-</footer>
-
-<div id="privacy-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm z-[110] hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-2xl rounded-[2.5rem] p-8 max-h-[80vh] overflow-y-auto">
-        <h2 class="text-2xl font-bold mb-6 text-slate-900">Política de Tratamiento de Datos</h2>
-        <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
-            <p><strong>1. Responsable:</strong> Tecnología Pa Todos procesa la información ingresada en el chat y la API Key con el único fin de proporcionar funcionalidad al sitio.</p>
-            <p><strong>2. Finalidad:</strong> Los datos del chat se envían a los modelos de Google AI Studio para generar respuestas. La API Key se almacena localmente en su navegador (localStorage) y no se guarda en nuestros servidores.</p>
-            <p><strong>3. Derechos:</strong> Usted puede eliminar su API Key en cualquier momento borrando los datos de navegación o desde el panel de configuración del sitio.</p>
-            <p><strong>4. Herramientas de Terceros:</strong> Este sitio utiliza servicios de Google (Gemini API) y enlaces de afiliados (OptiSigns, Fliki). Le recomendamos revisar las políticas de privacidad de dichos proveedores.</p>
-        </div>
-        <button onclick="togglePrivacy()" class="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold">Entendido</button>
-    </div>
-</div>
 </body>
-
-
 </html>
